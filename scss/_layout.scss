@@ -1,0 +1,183 @@
+/*-------------------------------------------
+header    # ヘッダー
+footer    # フッター
+container # コンテンツエリアの幅設定
+main      # メインコンテンツのレイアウト
+sidebar   # サイドバー
+grid      # グリッドレイアウト
+-------------------------------------------*/
+
+@use "base" as *;
+
+/*-------------------------------------------
+Header
+-------------------------------------------*/
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: var(--header-height);
+  background-color: var(--color-white);
+
+  h1 {
+    margin-left: max(rem(40), calc((100% - rem(1360)) / 2 + rem(40)));
+  }
+}
+
+.hamburger {
+  position: fixed;
+  top: rem(30);
+  right: max(rem(40), calc((100% - rem(1360)) / 2 + rem(40)));
+  width: rem(30);
+  height: rem(20);
+  cursor: pointer;
+  z-index: 1000;
+
+  // タッチエリアを拡大
+  &::before {
+    content: '';
+    position: absolute;
+    top: rem(-4);
+    right: rem(-4);
+    bottom: rem(-4);
+    left: rem(-4);
+  }
+
+  // ハンバーガーメニューの2本線
+  span {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: rem(2);
+    margin-block: rem(6);
+    background-color: var(--color-black);
+    transition: var(--transition-duration);
+  }
+
+  span:nth-child(1) {
+    top: 0;
+  }
+
+  span:nth-child(2) {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  &.active span:nth-child(1) {
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+    background-color: var(--color-white);
+  }
+
+  &.active span:nth-child(2) {
+    top: 50%;
+    transform: translateY(-50%) rotate(-45deg);
+    background-color: var(--color-white);
+  }
+}
+
+// オーバーレイ（画面を暗くする背景）
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--transition-duration);
+}
+
+// メニューが表示された時のスタイル
+.overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+// メニュー本体
+.menu {
+  position: fixed;
+  top: 0;
+  left: -100%; // 初期状態は画面外
+  width: rem(200);
+  height: 100%;
+  color: var(--color-white);
+  padding: rem(36) rem(50);
+  display: flex;
+  flex-direction: column;
+  gap: rem(14);
+  transition: var(--transition-duration);
+
+  a {
+    color: var(--color-white);
+    font-size: rem(14);
+    transform: translateX(-50px); // 初期状態は左にずらす
+    opacity: 0;
+    transition: var(--transition-duration);
+  }
+}
+
+.menu.active {
+  left: 0; // 画面にスライドイン
+
+  // 各リンクのアニメーション
+  a {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  // 各リンクにディレイをつける
+  a:nth-child(1) {
+    transition-delay: 0.0s;
+  }
+
+  a:nth-child(2) {
+    transition-delay: 0.1s;
+  }
+
+  a:nth-child(3) {
+    transition-delay: 0.2s;
+  }
+
+  a:nth-child(4) {
+    transition-delay: 0.3s;
+  }
+}
+
+
+/*-------------------------------------------
+Footer
+-------------------------------------------*/
+footer {
+  display: flex;
+  padding-bottom: rem(20);
+
+  @media (width < 900px) {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.social-list {
+  display: flex;
+  gap: rem(30);
+
+  .social-item {
+    font-size: rem(12);
+  }
+}
+
+.copyright {
+  margin-inline-start: auto;
+  font-size: rem(10);
+
+  @media (max-width: 900px) {
+    margin-inline-start: 0;
+    margin-top: rem(20);
+  }
+}

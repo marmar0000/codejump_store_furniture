@@ -1,0 +1,28 @@
+{
+	"name": "template",
+	"version": "1.0.0",
+	"main": "gulpfile.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "ma",
+	"license": "",
+	"devDependencies": {
+		"autoprefixer": "latest",
+		"browser-sync": "^3.0.3",
+		"css-declaration-sorter": "latest",
+		"gulp": "latest",
+		"gulp-clean-css": "latest",
+		"gulp-notify": "latest",
+		"gulp-plumber": "latest",
+		"gulp-postcss": "latest",
+		"gulp-rename": "latest",
+		"gulp-sass": "latest",
+		"gulp-sass-glob": "latest",
+		"gulp-uglify": "latest",
+		"sass": "^1.86.0",
+		"stylelint": "latest",
+		"stylelint-config-recommended-scss": "latest",
+		"stylelint-scss": "latest"
+	}
+}

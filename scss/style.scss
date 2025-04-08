@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+/*
+プロジェクト: Furniture Design
+目的: メインスタイルシート
+技術仕様:
+- SCSS使用
+- remベース設計
+- カスタムプロパティ活用
+- rem(): pxをremに変換
+*/
+
+
+@use "reset";
+@use "base" as *;
+@use "layout" as *;
+@use "page" as *;

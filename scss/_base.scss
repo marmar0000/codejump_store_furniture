@@ -1,0 +1,77 @@
+/*-------------------------------------------
+base         # 基本的なタグのスタイル（body, h1, a など）
+variables    # 変数（色・フォント・サイズなど）
+mixins       # ミックスイン（関数的なスタイル）
+grid         # グリッドシステム
+typography   # フォント・タイポグラフィ設定
+animation    # アニメーション関連
+-------------------------------------------*/
+
+
+/*-------------------------------------------
+Common
+-------------------------------------------*/
+@function rem($px) {
+  @return calc($px / 16) * 1rem;
+}
+
+:root {
+  --color-black: #333;
+  --color-white: #fff;
+  --line-color: #dcdbdb;
+  --header-height: #{rem(80)};
+  --transition-duration: 0.5s;
+}
+
+html {
+  height: 100%;
+  line-height: 1.5;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  font-family: Arial, "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+  color: var(--color-black);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+// スマホのユーザー体験を向上
+.btn {
+  inline-size: fit-content;
+  touch-action: manipulation;
+  user-select: none;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  max-width: rem(1360);
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: rem(40);
+  border-inline: 1px solid var(--line-color);
+}
+
+main {
+  flex: 1;
+  margin-top: var(--header-height);
+}
+
+/* 視差効果を減らす */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  ::before,
+  ::after {
+    transition-duration: 10ms !important;
+    animation-duration: 10ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
