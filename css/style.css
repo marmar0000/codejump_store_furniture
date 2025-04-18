@@ -1,0 +1,697 @@
+@charset "UTF-8";
+/*
+プロジェクト: Furniture Design
+目的: メインスタイルシート
+技術仕様:
+- SCSS使用
+- remベース設計
+- カスタムプロパティ活用
+- rem(): pxをremに変換
+*/
+*,
+::before,
+::after {
+  box-sizing: border-box;
+  border-style: solid;
+  border-width: 0;
+  min-width: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+body {
+  margin: 0;
+}
+
+main {
+  display: block;
+}
+
+p,
+table,
+blockquote,
+address,
+pre,
+iframe,
+form,
+figure,
+dl {
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: inherit;
+  margin: 0;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+dd {
+  margin-left: 0;
+}
+
+hr {
+  box-sizing: content-box;
+  height: 0;
+  overflow: visible;
+  border-top-width: 1px;
+  margin: 0;
+  clear: both;
+  color: inherit;
+}
+
+pre {
+  font-family: monospace, monospace;
+  font-size: inherit;
+}
+
+address {
+  font-style: inherit;
+}
+
+a {
+  background-color: rgba(0, 0, 0, 0);
+  text-decoration: none;
+  color: inherit;
+}
+
+abbr[title] {
+  -webkit-text-decoration: underline dotted;
+  text-decoration: underline dotted;
+}
+
+b,
+strong {
+  font-weight: bolder;
+}
+
+code,
+kbd,
+samp {
+  font-family: monospace, monospace;
+  font-size: inherit;
+}
+
+small {
+  font-size: 80%;
+}
+
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+sup {
+  top: -0.5em;
+}
+
+svg,
+img,
+embed,
+object,
+iframe {
+  vertical-align: bottom;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  vertical-align: middle;
+  color: inherit;
+  font: inherit;
+  background: rgba(0, 0, 0, 0);
+  padding: 0;
+  margin: 0;
+  border-radius: 0;
+  text-align: inherit;
+  text-transform: inherit;
+}
+
+button,
+[type=button],
+[type=reset],
+[type=submit] {
+  cursor: pointer;
+}
+
+button:disabled,
+[type=button]:disabled,
+[type=reset]:disabled,
+[type=submit]:disabled {
+  cursor: default;
+}
+
+:-moz-focusring {
+  outline: auto;
+}
+
+select:disabled {
+  opacity: inherit;
+}
+
+option {
+  padding: 0;
+}
+
+fieldset {
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+
+legend {
+  padding: 0;
+}
+
+progress {
+  vertical-align: baseline;
+}
+
+textarea {
+  overflow: auto;
+}
+
+[type=number]::-webkit-inner-spin-button,
+[type=number]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+[type=search] {
+  outline-offset: -2px;
+}
+
+[type=search]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  border-collapse: collapse;
+}
+
+caption {
+  text-align: left;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+td,
+th {
+  vertical-align: top;
+  padding: 0;
+}
+
+th {
+  text-align: left;
+  font-weight: 400;
+}
+
+/*-------------------------------------------
+base         # 基本的なタグのスタイル（body, h1, a など）
+variables    # 変数（色・フォント・サイズなど）
+mixins       # ミックスイン（関数的なスタイル）
+grid         # グリッドシステム
+typography   # フォント・タイポグラフィ設定
+animation    # アニメーション関連
+-------------------------------------------*/
+/*-------------------------------------------
+Common
+-------------------------------------------*/
+:root {
+  --color-black: #333;
+  --color-white: #fff;
+  --line-color: #dcdbdb;
+  --header-height: 5rem;
+  --transition-duration: 0.5s;
+}
+
+html {
+  height: 100%;
+  line-height: 1.5;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  font-family: Arial, "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+  color: var(--color-black);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.btn {
+  inline-size: -moz-fit-content;
+  inline-size: fit-content;
+  touch-action: manipulation;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  max-width: 85rem;
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: 2.5rem;
+  border-inline: 1px solid var(--line-color);
+}
+
+main {
+  flex: 1;
+  margin-top: var(--header-height);
+}
+
+/* 視差効果を減らす */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    transition-duration: 10ms !important;
+    animation-duration: 10ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+/*-------------------------------------------
+header    # ヘッダー
+footer    # フッター
+container # コンテンツエリアの幅設定
+main      # メインコンテンツのレイアウト
+sidebar   # サイドバー
+grid      # グリッドレイアウト
+-------------------------------------------*/
+/*-------------------------------------------
+Header
+-------------------------------------------*/
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: var(--header-height);
+  background-color: var(--color-white);
+}
+header h1 {
+  margin-left: max(2.5rem, (100% - 85rem) / 2 + 2.5rem);
+}
+
+.hamburger {
+  position: fixed;
+  top: 1.875rem;
+  right: max(2.5rem, (100% - 85rem) / 2 + 2.5rem);
+  width: 1.875rem;
+  height: 1.25rem;
+  cursor: pointer;
+  z-index: 1000;
+}
+.hamburger::before {
+  content: "";
+  position: absolute;
+  top: -0.25rem;
+  right: -0.25rem;
+  bottom: -0.25rem;
+  left: -0.25rem;
+}
+.hamburger span {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 0.125rem;
+  margin-block: 0.375rem;
+  background-color: var(--color-black);
+  transition: var(--transition-duration);
+}
+.hamburger span:nth-child(1) {
+  top: 0;
+}
+.hamburger span:nth-child(2) {
+  top: 50%;
+  transform: translateY(-50%);
+}
+.hamburger.active span:nth-child(1) {
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+  background-color: var(--color-white);
+}
+.hamburger.active span:nth-child(2) {
+  top: 50%;
+  transform: translateY(-50%) rotate(-45deg);
+  background-color: var(--color-white);
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--transition-duration);
+}
+
+.overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.menu {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 12.5rem;
+  height: 100%;
+  color: var(--color-white);
+  padding: 2.25rem 3.125rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  transition: var(--transition-duration);
+}
+.menu a {
+  color: var(--color-white);
+  font-size: 0.875rem;
+  transform: translateX(-50px);
+  opacity: 0;
+  transition: var(--transition-duration);
+}
+
+.menu.active {
+  left: 0;
+}
+.menu.active a {
+  transform: translateX(0);
+  opacity: 1;
+}
+.menu.active a:nth-child(1) {
+  transition-delay: 0s;
+}
+.menu.active a:nth-child(2) {
+  transition-delay: 0.1s;
+}
+.menu.active a:nth-child(3) {
+  transition-delay: 0.2s;
+}
+.menu.active a:nth-child(4) {
+  transition-delay: 0.3s;
+}
+
+/*-------------------------------------------
+Footer
+-------------------------------------------*/
+footer {
+  display: flex;
+  padding-bottom: 1.25rem;
+}
+@media (width < 900px) {
+  footer {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.social-list {
+  display: flex;
+  gap: 1.875rem;
+}
+.social-list .social-item {
+  font-size: 0.75rem;
+}
+
+.copyright {
+  margin-inline-start: auto;
+  font-size: 0.625rem;
+}
+@media (max-width: 900px) {
+  .copyright {
+    margin-inline-start: 0;
+    margin-top: 1.25rem;
+  }
+}
+
+/*-------------------------------------------
+index.html
+-------------------------------------------*/
+.products {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2.5rem 2.125rem;
+}
+@media (width < 900px) {
+  .products {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem 1.1875rem;
+  }
+}
+
+.product-item {
+  font-size: 0.75rem;
+}
+.product-item img {
+  width: 100%;
+}
+.product-item a {
+  transition: var(--transition-duration);
+}
+.product-item a:hover {
+  opacity: 0.7;
+}
+
+.product-name {
+  margin-top: 0.625rem;
+}
+
+.view-more {
+  text-align: center;
+  margin-top: 2.5rem;
+  margin-bottom: 7.5rem;
+  font-size: 0.875rem;
+}
+@media (width < 900px) {
+  .view-more {
+    margin-top: 3.75rem;
+    margin-bottom: 6.25rem;
+  }
+}
+.view-more a {
+  transition: var(--transition-duration);
+}
+.view-more a:hover {
+  opacity: 0.7;
+}
+
+/*-------------------------------------------
+products.html
+-------------------------------------------*/
+.page-title {
+  margin-top: 2.5rem;
+  margin-bottom: 1.875rem;
+  font-size: 0.875rem;
+}
+@media (width < 900px) {
+  .page-title {
+    margin-bottom: 0.75rem;
+  }
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 2.5rem;
+  text-align: center;
+  margin-top: 2.5rem;
+  margin-bottom: 7.5rem;
+  font-size: 0.875rem;
+}
+@media (width < 900px) {
+  .pagination {
+    margin-top: 3.75rem;
+    margin-bottom: 6.25rem;
+  }
+}
+.pagination a {
+  display: inline-block;
+  transition: var(--transition-duration);
+}
+.pagination a:hover {
+  opacity: 0.7;
+}
+
+/*-------------------------------------------
+item.html
+-------------------------------------------*/
+.product-title {
+  margin-top: 2.5rem;
+  font-size: 0.875rem;
+}
+
+.item-content {
+  display: flex;
+  gap: 4rem;
+  max-width: 50rem;
+  margin-top: 1.875rem;
+}
+@media (width < 900px) {
+  .item-content {
+    flex-direction: column;
+    gap: 1.875rem;
+  }
+}
+@media (width < 900px) {
+  .item-content .item-image {
+    width: 100%;
+  }
+}
+.item-content .item-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1.875rem;
+  max-width: 21rem;
+  font-size: 0.875rem;
+}
+@media (width < 900px) {
+  .item-content .item-text {
+    max-width: 100%;
+  }
+}
+.item-content .item-text .product-info {
+  display: flex;
+  flex-wrap: wrap;
+}
+.item-content .item-text .product-info dt,
+.item-content .item-text .product-info dd {
+  margin: 0;
+}
+.item-content .item-text .product-info dt {
+  flex: 1 1 30%;
+}
+.item-content .item-text .product-info dd {
+  flex: 1 1 70%;
+}
+
+.item .view-more {
+  margin-top: 3.75rem;
+}
+@media (width < 900px) {
+  .item .view-more {
+    margin-bottom: 6.25rem;
+  }
+}
+
+/*-------------------------------------------
+about.html
+-------------------------------------------*/
+.about {
+  max-width: 37.5rem;
+  padding-bottom: 7.5rem;
+  font-size: 0.875rem;
+}
+.about .about-content {
+  margin-top: 1.875rem;
+}
+.about .about-content .about-text:nth-child(2) {
+  margin-top: 1.875rem;
+}
+
+/*-------------------------------------------
+company.html
+-------------------------------------------*/
+.company {
+  max-width: 37.5rem;
+  font-size: 0.875rem;
+}
+
+.company-info {
+  display: flex;
+  flex-wrap: wrap;
+}
+.company-info dt,
+.company-info dd {
+  padding: 1.25rem 0.625rem;
+}
+.company-info dt:not(:last-of-type),
+.company-info dd:not(:last-of-type) {
+  border-bottom: 1px solid #ccc;
+}
+.company-info dt {
+  flex: 1 1 30%;
+}
+@media (width < 900px) {
+  .company-info dt {
+    flex: 1 1 100%;
+    padding-bottom: 0rem;
+  }
+  .company-info dt:not(:last-of-type) {
+    border-bottom: none;
+  }
+}
+.company-info dd {
+  flex: 1 1 70%;
+}
+@media (width < 900px) {
+  .company-info dd {
+    flex: 1 1 100%;
+    padding-top: 0.625rem;
+  }
+}
+
+.map-wrapper {
+  position: relative;
+  width: 100%;
+  height: 18.75rem;
+  margin-top: 1.25rem;
+  margin-bottom: 7.5rem;
+}
+@media (width < 900px) {
+  .map-wrapper {
+    margin-top: 2.5rem;
+    margin-bottom: 6.25rem;
+  }
+}
+
+.map {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  filter: grayscale(100%);
+}/*# sourceMappingURL=style.css.map */
